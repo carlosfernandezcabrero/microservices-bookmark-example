@@ -1,0 +1,10 @@
+version: '3'
+services:
+    push-data:
+        image: micro-push-data
+        ports:
+            - "3000:3000"
+        deploy:
+            replicas: 2
+            restart_policy:
+                condition: on-failure
