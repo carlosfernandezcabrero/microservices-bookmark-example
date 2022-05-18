@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: env-fear-database
+  namespace: staging
+data:
+  MYSQL_DATABASE: 'fear'
+  MYSQL_USER: 'fear'
+  MYSQL_PASSWORD: 'youR3allyNeedToChangeThisValue'
+  MYSQL_ROOT_PASSWORD: 'rootYouR3allyNeedToChangeThisValue'

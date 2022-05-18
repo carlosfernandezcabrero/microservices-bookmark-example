@@ -1,0 +1,33 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+  name: fear-data
+  namespace: production
+  labels:
+    app.kubernetes.io/name: fear-data-ingress
+    app.kubernetes.io/component: front
+    app.kubernetes.io/part-of: fear-data
+    app.kubernetes.io/version: latest
+    app.kubernetes.io/instance: all
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: fear.id
+    http:
+      paths:
+      - pathType: Prefix
+        path: '/_get/data(/|$)(.*)'
+        backend:
+          service:
+            name: fear-get-data
+            port:
+              number: 3000
+      - pathType: Prefix
+        path: '/_post/data(/|$)(.*)'
+        backend:
+          service:
+            name: fear-push-data
+            port:
+              number: 3000

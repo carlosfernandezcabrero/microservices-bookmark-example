@@ -47,7 +47,7 @@ The SQL file contains sql code to generate table. This file is in the static fol
 1. Create a microservice image with a Dockerfile, example:
 
     ``` shell
-    sudo docker build -t micro-get-data .
+    sudo ./build.sh setup-container-images
     ```
 
 2. Deploy images to the cluster:
@@ -57,5 +57,5 @@ The SQL file contains sql code to generate table. This file is in the static fol
     Deploy command:
 
     ``` shell
-    sudo docker stack deploy --compose-file docker-compose.yml stackdemo
+    sudo ./deploy.sh kubernetes
     ```

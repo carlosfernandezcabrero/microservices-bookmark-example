@@ -6,3 +6,4 @@
 **/coverage
 *.ods
 mysqlConfig.js
+skaffold-temporary.yaml
