@@ -47,5 +47,5 @@ deploy:
     - ./deploy/kubernetes/apps/get-data/service.yaml
     - ./deploy/kubernetes/apps/mysql/statefulset.yaml
     - ./deploy/kubernetes/apps/mysql/service.yaml
-    - ./deploy/kubernetes/apps/post-data/deployment.yaml
-    - ./deploy/kubernetes/apps/post-data/service.yaml
+    - ./deploy/kubernetes/apps/push-data/deployment.yaml
+    - ./deploy/kubernetes/apps/push-data/service.yaml
