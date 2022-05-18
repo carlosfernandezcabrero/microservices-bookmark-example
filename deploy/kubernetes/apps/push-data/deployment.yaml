@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fear-push-data
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: fear-push-data
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: fear-push-data
+        app.kubernetes.io/instance: all
+        app.kubernetes.io/version: latest
+        app.kubernetes.io/component: back
+        app.kubernetes.io/part-of: fear-data
+        app.kubernetes.io/managed-by: kubectl
+      name: fear-push-data
+    spec:
+      initContainers:
+        - name: wait-mysql
+          image: busybox:1.28
+          command: ['sh', '-c', 'echo -e "Checking for the availability of MySQL Server deployment"; while ! nc -z fear-mysql 3306; do sleep 1; printf "-"; done; echo -e " >> MySQL DB Server has started";']
+      containers:
+        - image: michaelact/fear-push-data:latest
+          name: get-data
+          ports:
+            - containerPort: 3000
+          envFrom:
+            - configMapRef:
+                name: env-fear-push-data
+          volumeMounts:
+            - name: configurations
+              mountPath: /usr/src/app/src/shared/config/mysqlConfig.js
+              subPath: mysqlConfig.js
+      volumes:
+        - name: configurations
+          configMap:
+            name: configs-fear-push-data
+            items:
+            - key: mysqlConfig.js
+              path: mysqlConfig.js
+      restartPolicy: Always

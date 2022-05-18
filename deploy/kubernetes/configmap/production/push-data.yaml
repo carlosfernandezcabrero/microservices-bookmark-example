@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: env-fear-push-data
+  namespace: production
+data:
+  PORT: '3000'
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: configs-fear-push-data
+  namespace: production
+data:
+  mysqlConfig.js: |-
+    const MYSQL_CONFIG = {
+      host           : 'fear-mysql',
+      user           : 'fear',
+      password       : 'youR3allyNeedToChangeThisValue',
+      database       : 'fear',
+      connectTimeout : 60000,
+    }
+
+    module.exports = MYSQL_CONFIG
